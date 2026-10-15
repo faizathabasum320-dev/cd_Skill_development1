@@ -1,94 +1,54 @@
-# content-type
+# dunder-proto <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
-[![NPM Version][npm-version-image]][npm-url]
-[![NPM Downloads][npm-downloads-image]][npm-url]
-[![Node.js Version][node-image]][node-url]
-[![Build Status][ci-image]][ci-url]
-[![Coverage Status][coveralls-image]][coveralls-url]
+[![github actions][actions-image]][actions-url]
+[![coverage][codecov-image]][codecov-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
 
-Create and parse HTTP Content-Type header according to RFC 7231
+[![npm badge][npm-badge-png]][package-url]
 
-## Installation
+If available, the `Object.prototype.__proto__` accessor and mutator, call-bound.
+
+## Getting started
 
 ```sh
-$ npm install content-type
+npm install --save dunder-proto
 ```
 
-## API
+## Usage/Examples
 
 ```js
-var contentType = require('content-type')
+const assert = require('assert');
+const getDunder = require('dunder-proto/get');
+const setDunder = require('dunder-proto/set');
+
+const obj = {};
+
+assert.equal('toString' in obj, true);
+assert.equal(getDunder(obj), Object.prototype);
+
+setDunder(obj, null);
+
+assert.equal('toString' in obj, false);
+assert.equal(getDunder(obj), null);
 ```
 
-### contentType.parse(string)
+## Tests
 
-```js
-var obj = contentType.parse('image/svg+xml; charset=utf-8')
-```
+Clone the repo, `npm install`, and run `npm test`
 
-Parse a `Content-Type` header. This will return an object with the following
-properties (examples are shown for the string `'image/svg+xml; charset=utf-8'`):
-
- - `type`: The media type (the type and subtype, always lower case).
-   Example: `'image/svg+xml'`
-
- - `parameters`: An object of the parameters in the media type (name of parameter
-   always lower case). Example: `{charset: 'utf-8'}`
-
-Throws a `TypeError` if the string is missing or invalid.
-
-### contentType.parse(req)
-
-```js
-var obj = contentType.parse(req)
-```
-
-Parse the `Content-Type` header from the given `req`. Short-cut for
-`contentType.parse(req.headers['content-type'])`.
-
-Throws a `TypeError` if the `Content-Type` header is missing or invalid.
-
-### contentType.parse(res)
-
-```js
-var obj = contentType.parse(res)
-```
-
-Parse the `Content-Type` header set on the given `res`. Short-cut for
-`contentType.parse(res.getHeader('content-type'))`.
-
-Throws a `TypeError` if the `Content-Type` header is missing or invalid.
-
-### contentType.format(obj)
-
-```js
-var str = contentType.format({
-  type: 'image/svg+xml',
-  parameters: { charset: 'utf-8' }
-})
-```
-
-Format an object into a `Content-Type` header. This will return a string of the
-content type for the given object with the following properties (examples are
-shown that produce the string `'image/svg+xml; charset=utf-8'`):
-
- - `type`: The media type (will be lower-cased). Example: `'image/svg+xml'`
-
- - `parameters`: An object of the parameters in the media type (name of the
-   parameter will be lower-cased). Example: `{charset: 'utf-8'}`
-
-Throws a `TypeError` if the object contains an invalid type or parameter names.
-
-## License
-
-[MIT](LICENSE)
-
-[ci-image]: https://badgen.net/github/checks/jshttp/content-type/master?label=ci
-[ci-url]: https://github.com/jshttp/content-type/actions/workflows/ci.yml
-[coveralls-image]: https://badgen.net/coveralls/c/github/jshttp/content-type/master
-[coveralls-url]: https://coveralls.io/r/jshttp/content-type?branch=master
-[node-image]: https://badgen.net/npm/node/content-type
-[node-url]: https://nodejs.org/en/download
-[npm-downloads-image]: https://badgen.net/npm/dm/content-type
-[npm-url]: https://npmjs.org/package/content-type
-[npm-version-image]: https://badgen.net/npm/v/content-type
+[package-url]: https://npmjs.org/package/dunder-proto
+[npm-version-svg]: https://versionbadg.es/es-shims/dunder-proto.svg
+[deps-svg]: https://david-dm.org/es-shims/dunder-proto.svg
+[deps-url]: https://david-dm.org/es-shims/dunder-proto
+[dev-deps-svg]: https://david-dm.org/es-shims/dunder-proto/dev-status.svg
+[dev-deps-url]: https://david-dm.org/es-shims/dunder-proto#info=devDependencies
+[npm-badge-png]: https://nodei.co/npm/dunder-proto.png?downloads=true&stars=true
+[license-image]: https://img.shields.io/npm/l/dunder-proto.svg
+[license-url]: LICENSE
+[downloads-image]: https://img.shields.io/npm/dm/dunder-proto.svg
+[downloads-url]: https://npm-stat.com/charts.html?package=dunder-proto
+[codecov-image]: https://codecov.io/gh/es-shims/dunder-proto/branch/main/graphs/badge.svg
+[codecov-url]: https://app.codecov.io/gh/es-shims/dunder-proto/
+[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/es-shims/dunder-proto
+[actions-url]: https://github.com/es-shims/dunder-proto/actions
